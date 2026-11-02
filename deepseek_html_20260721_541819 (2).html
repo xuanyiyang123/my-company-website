@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>河南旋翼航空科技有限公司 - 用科技重塑未来</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #1565c0;
+      --primary-dark: #0d47a1;
+      --primary-light: #42a5f5;
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-600: #64748b;
+      --gray-800: #1e293b;
+      --shadow: 0 4px 24px rgba(21, 101, 192, 0.12);
+      --shadow-lg: 0 12px 40px rgba(21, 101, 192, 0.18);
+      --radius: 12px;
+      --transition: 0.3s ease;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      color: var(--gray-800);
+      line-height: 1.6;
+      background: var(--white);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ===== 导航栏 ===== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      height: 72px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(21, 101, 192, 0.08);
+      transition: box-shadow var(--transition);
+    }
+
+    .navbar.scrolled {
+      box-shadow: var(--shadow);
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.02em;
+    }
+
+    .logo span {
+      color: var(--primary-light);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--gray-800);
+      position: relative;
+      padding: 0.25rem 0;
+      transition: color var(--transition);
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width var(--transition);
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--primary);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after {
+      width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    .menu-toggle.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .menu-toggle.open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* ===== 首屏横幅 ===== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background:
+        linear-gradient(135deg, rgba(13, 71, 161, 0.82) 0%, rgba(21, 101, 192, 0.65) 50%, rgba(66, 165, 245, 0.55) 100%),
+        url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1920&q=80") center / cover no-repeat;
+      color: var(--white);
+      padding: 0 5%;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      padding: 0.4rem 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      opacity: 0.9;
+      margin-bottom: 2.5rem;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      padding: 0.9rem 2.5rem;
+      background: var(--white);
+      color: var(--primary);
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all var(--transition);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--white);
+      border-color: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-indicator svg {
+      width: 28px;
+      height: 28px;
+      fill: rgba(255, 255, 255, 0.7);
+    }
+
+    /* ===== 通用区块 ===== */
+    section {
+      padding: 6rem 5%;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 640px;
+      margin: 0 auto 3.5rem;
+    }
+
+    .section-header .label {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--primary);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.75rem, 3vw, 2.25rem);
+      font-weight: 700;
+      color: var(--gray-800);
+      margin-bottom: 1rem;
+    }
+
+    .section-header p {
+      color: var(--gray-600);
+      font-size: 1.05rem;
+    }
+
+    /* ===== 关于我们 ===== */
+    .about {
+      background: var(--gray-50);
+    }
+
+    .about-content {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: var(--gray-600);
+      font-size: 1.05rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .about-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .stat-card {
+      background: var(--white);
+      padding: 1.75rem;
+      border-radius: var(--radius);
+      text-align: center;
+      box-shadow: var(--shadow);
+      transition: transform var(--transition);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .stat-card .number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.2;
+    }
+
+    .stat-card .desc {
+      font-size: 0.9rem;
+      color: var(--gray-600);
+      margin-top: 0.25rem;
+    }
+
+    /* ===== 产品与服务 ===== */
+    .services-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .service-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      border: 1px solid rgba(21, 101, 192, 0.08);
+      transition: all var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      transform: scaleX(0);
+      transition: transform var(--transition);
+    }
+
+    .service-card:hover {
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-6px);
+    }
+
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .service-icon {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 1.5rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .service-icon svg {
+      width: 32px;
+      height: 32px;
+      fill: var(--white);
+    }
+
+    .service-card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--gray-800);
+    }
+
+    .service-card p {
+      font-size: 0.95rem;
+      color: var(--gray-600);
+      line-height: 1.7;
+    }
+
+    /* ===== 新闻动态 ===== */
+    .news {
+      background: var(--gray-50);
+    }
+
+    .news-cards-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .news-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+      border: none;
+      text-align: left;
+      width: 100%;
+      font-family: inherit;
+      padding: 0;
+    }
+
+    .news-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .news-card-cover {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+    }
+
+    .news-card-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .news-card:hover .news-card-cover img {
+      transform: scale(1.06);
+    }
+
+    .news-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(13, 71, 161, 0.88) 0%, rgba(13, 71, 161, 0.35) 45%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.25rem;
+    }
+
+    .news-card-tag {
+      align-self: flex-start;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .news-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.45;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .news-card-footer {
+      padding: 0.9rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--gray-600);
+    }
+
+    .news-card-date {
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    .news-card-more {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .news-list.hidden,
+    .news-detail.hidden {
+      display: none;
+    }
+
+    .news-detail {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .news-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--white);
+      border: 1px solid rgba(21, 101, 192, 0.15);
+      color: var(--primary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.55rem 1.1rem;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-bottom: 1.25rem;
+      transition: all var(--transition);
+      font-family: inherit;
+    }
+
+    .news-back:hover {
+      background: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+    }
+
+    .news-article {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2.5rem 2.5rem 3rem;
+      box-shadow: var(--shadow);
+    }
+
+    .article-title {
+      font-size: clamp(1.4rem, 3vw, 1.75rem);
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--gray-800);
+      margin-bottom: 1.25rem;
+    }
+
+    .article-author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--gray-100);
+      margin-bottom: 1.5rem;
+    }
+
+    .author-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: var(--white);
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .author-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .author-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--gray-800);
+    }
+
+    .author-meta {
+      font-size: 0.8rem;
+      color: var(--gray-600);
+    }
+
+    .ai-summary {
+      background: linear-gradient(135deg, rgba(21, 101, 192, 0.06), rgba(66, 165, 245, 0.08));
+      border: 1px solid rgba(21, 101, 192, 0.12);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .ai-summary-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .ai-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary);
+      background: rgba(21, 101, 192, 0.1);
+      padding: 0.2rem 0.65rem;
+      border-radius: 4px;
+    }
+
+    .ai-badge::before {
+      content: "✦";
+      font-size: 0.7rem;
+    }
+
+    .ai-summary p {
+      font-size: 0.95rem;
+      color: var(--gray-600);
+      line-height: 1.85;
+      text-align: justify;
+    }
+
+    .ai-note {
+      display: block;
+      margin-top: 0.75rem;
+      font-size: 0.75rem;
+      color: #94a3b8;
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: #333;
+      line-height: 2;
+      margin-bottom: 1.5rem;
+      text-align: justify;
+      text-indent: 2em;
+    }
+
+    .article-content p:last-child {
+      margin-bottom: 0;
+    }
+
+    .article-image {
+      margin: 1.5rem 0 2rem;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .article-image img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .article-image figcaption {
+      padding: 0.65rem 0.75rem;
+      font-size: 0.8rem;
+      color: var(--gray-600);
+      background: var(--gray-50);
+      text-align: center;
+      text-indent: 0;
+    }
+
+    .article-source {
+      margin-top: 2rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--gray-100);
+      font-size: 0.8rem;
+      color: #94a3b8;
+      text-align: right;
+    }
+
+    /* ===== 联系我们 ===== */
+    .contact-wrapper {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--gray-600);
+    }
+
+    .contact-item svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--primary);
+      flex-shrink: 0;
+    }
+
+    /* ===== 页脚 ===== */
+    .footer {
+      background: var(--primary-dark);
+      color: rgba(255, 255, 255, 0.85);
+      padding: 3rem 5% 2rem;
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .footer-brand {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-links a {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+    }
+
+    .social-links a:hover {
+      background: var(--white);
+      transform: translateY(-2px);
+    }
+
+    .social-links a:hover svg {
+      fill: var(--primary);
+    }
+
+    .social-links svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--white);
+      transition: fill var(--transition);
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 2rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      text-align: center;
+      font-size: 0.85rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    /* ===== 动画 ===== */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-8px); }
+      60% { transform: translateX(-50%) translateY(-4px); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 900px) {
+      .services-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+      }
+
+      .news-article {
+        padding: 1.75rem 1.25rem 2rem;
+      }
+
+      .news-cards-grid {
+        grid-template-columns: 1fr;
+        max-width: 420px;
+        margin: 0 auto;
+      }
+
+      .about-content {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: flex;
+      }
+
+      .nav-links {
+        position: fixed;
+        top: 72px;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        background: var(--white);
+        padding: 1.5rem;
+        gap: 0;
+        box-shadow: var(--shadow);
+        transform: translateY(-120%);
+        opacity: 0;
+        transition: all var(--transition);
+        pointer-events: none;
+      }
+
+      .nav-links.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .nav-links li {
+        width: 100%;
+      }
+
+      .nav-links a {
+        display: block;
+        padding: 0.85rem 0;
+        border-bottom: 1px solid var(--gray-100);
+      }
+
+      section {
+        padding: 4rem 5%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 顶部导航栏 -->
+  <nav class="navbar" id="navbar">
+    <a href="#" class="logo">河南旋翼<span>航空科技</span>有限公司</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="菜单">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="active">首页</a></li>
+      <li><a href="#about">关于我们</a></li>
+      <li><a href="#services">产品与服务</a></li>
+      <li><a href="#news">新闻动态</a></li>
+      <li><a href="#contact">联系我们</a></li>
+    </ul>
+  </nav>
+
+  <!-- 首屏横幅区 -->
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <div class="hero-tag">低空经济 · 无人机应用 · 人才培养</div>
+      <h1>用科技重塑航空行业</h1>
+      <p>我们致力于以前沿技术驱动产业变革，为客户创造可持续的商业价值与卓越体验。</p>
+      <a href="#about" class="btn-primary">了解更多</a>
+    </div>
+    <div class="scroll-indicator">
+      <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+    </div>
+  </section>
+
+  <!-- 关于我们 -->
+  <section class="about" id="about">
+    <div class="section-header fade-in">
+      <div class="label">ABOUT US</div>
+      <h2>关于我们</h2>
+      <p>以创新为引擎，以技术为基石，助力企业数字化转型</p>
+    </div>
+    <div class="about-content fade-in">
+      <div class="about-text">
+        <p>
+          河南旋翼航空科技有限公司成立于2015年，是一家专注于低空经济与无人机技术应用的高新技术企业。
+          我们的使命是通过技术创新，帮助传统行业实现智能化升级，让科技真正服务于商业与社会。
+        </p>
+        <p>
+          公司业务涵盖无人机CAAC执照培训、航测测绘、农林植保、环境勘察及应急救援等领域，
+          致力于成为行业领先的科技赋能平台，以开放、协作、共赢的理念，与合作伙伴共同构建智慧未来。
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="number">500+</div>
+          <div class="desc">培训学员</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">10+</div>
+          <div class="desc">年行业经验</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">10万+</div>
+          <div class="desc">植保作业面积（亩）</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">98%</div>
+          <div class="desc">客户满意度</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 产品与服务 -->
+  <section class="services" id="services">
+    <div class="section-header fade-in">
+      <div class="label">SERVICES</div>
+      <h2>产品与服务</h2>
+      <p>三大核心业务，全方位满足您的低空经济需求</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card fade-in">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        </div>
+        <h3>无人机培训</h3>
+        <p>民航局CAAC认证培训，涵盖无人机驾驶员执照考证、无人机维修技术等课程，助力学员实现专业蜕变。</p>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+        </div>
+        <h3>航测与数字服务</h3>
+        <p>运用工业级无人机与遥感技术，提供高精度航拍、影像拼接与矢量化处理服务，助力基层治理与智慧农业。</p>
+      </div>
+      <div class="service-card fade-in">
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
+        </div>
+        <h3>行业应用解决方案</h3>
+        <p>覆盖农林植保、电力巡检、应急救援、环境勘察等领域，提供定制化无人机行业应用全链条服务。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 新闻动态 -->
+  <section class="news" id="news">
+    <div class="section-header fade-in">
+      <div class="label">NEWS</div>
+      <h2>新闻动态</h2>
+      <p>关注公司最新活动与行业动态</p>
+    </div>
+
+    <div class="news-list fade-in" id="newsList">
+      <div class="news-cards-grid" id="newsCardsGrid"></div>
+    </div>
+
+    <div class="news-detail hidden" id="newsDetail">
+      <button class="news-back" id="newsBack" type="button">← 返回列表</button>
+      <article class="news-article" id="newsArticleContent"></article>
+    </div>
+  </section>
+
+  <!-- 联系我们 -->
+  <section class="contact" id="contact">
+    <div class="section-header fade-in">
+      <div class="label">CONTACT</div>
+      <h2>联系我们</h2>
+      <p>期待与您携手，共创智慧未来</p>
+    </div>
+    <div class="contact-wrapper fade-in">
+      <div class="contact-info">
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <span>河南省信阳市航空科技园区88号</span>
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          <span>400-888-9999</span>
+        </div>
+        <div class="contact-item">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <span>contact@xuanyi-tech.com</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">河南旋翼航空科技有限公司</div>
+      <div class="social-links">
+        <a href="#" aria-label="微信" title="微信">
+          <svg viewBox="0 0 24 24"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 0 1 .213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 0 0 .167-.054l1.903-1.114a.864.864 0 0 1 .717-.098 10.16 10.16 0 0 0 2.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178A1.17 1.17 0 0 1 4.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 0 1-1.162 1.178 1.17 1.17 0 0 1-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 0 1 .598.082l1.584.926a.272.272 0 0 0 .14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 0 1-.023-.156.49.49 0 0 1 .201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89c-.135-.01-.27-.027-.407-.027zm-2.53 3.274c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.97-.982zm4.844 0c.535 0 .969.44.969.982a.976.976 0 0 1-.969.983.976.976 0 0 1-.969-.983c0-.542.434-.982.969-.982z"/></svg>
+        </a>
+        <a href="#" aria-label="微博" title="微博">
+          <svg viewBox="0 0 24 24"><path d="M9.839 15.565c-.489 0-.979-.131-1.412-.393-1.124-.728-1.556-2.203-.965-3.295.591-1.092 1.998-1.547 3.122-.819 1.124.728 1.556 2.203.965 3.295-.394.727-1.073 1.212-1.71 1.212zm8.975-6.677c-.489-.131-.979-.262-1.469-.262-2.248 0-4.234 1.178-5.358 2.957-.489.787-.489 1.703 0 2.49.489.787 1.338 1.309 2.248 1.309.489 0 .979-.131 1.412-.393 1.124-.728 1.556-2.203.965-3.295-.197-.328-.489-.656-.798-.806zm-1.073 2.228c.197.328.295.656.197.984-.098.328-.393.656-.786.787-.393.131-.786.131-1.18 0-.393-.131-.688-.459-.786-.787-.098-.328 0-.656.197-.984.295-.459.786-.787 1.28-.787.393 0 .786.131 1.078.393v.394zM10.5 3C5.806 3 2 6.477 2 10.8c0 2.228 1.18 4.203 3.024 5.55-.098.328-.295.984-.393 1.309-.098.328 0 .656.295.787.295.131.688.098 1.18-.197 1.571l-.688 1.047c-.098.131-.098.328 0 .459.098.131.295.131.393 0l1.863-1.047c.393-.197.786-.328 1.18-.393 1.18.328 2.445.525 3.728.525 4.694 0 8.5-3.477 8.5-7.8S15.194 3 10.5 3z"/></svg>
+        </a>
+        <a href="#" aria-label="LinkedIn" title="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        </a>
+        <a href="#" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5A10 10 0 0 0 22 12 10 10 0 0 0 12 2z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 河南旋翼航空科技有限公司 版权所有 | 豫ICP备XXXXXXXX号
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const navbar = document.getElementById("navbar");
+      const menuToggle = document.getElementById("menuToggle");
+      const navLinks = document.getElementById("navLinks");
+      const links = navLinks.querySelectorAll("a");
+      const sections = document.querySelectorAll("section[id]");
+
+      window.addEventListener("scroll", function () {
+        navbar.classList.toggle("scrolled", window.scrollY > 50);
+        updateActiveLink();
+      });
+
+      menuToggle.addEventListener("click", function () {
+        menuToggle.classList.toggle("open");
+        navLinks.classList.toggle("open");
+      });
+
+      links.forEach(function (link) {
+        link.addEventListener("click", function () {
+          menuToggle.classList.remove("open");
+          navLinks.classList.remove("open");
+        });
+      });
+
+      function updateActiveLink() {
+        var scrollPos = window.scrollY + 100;
+        sections.forEach(function (section) {
+          var top = section.offsetTop;
+          var height = section.offsetHeight;
+          var id = section.getAttribute("id");
+          if (scrollPos >= top && scrollPos < top + height) {
+            links.forEach(function (link) {
+              link.classList.toggle("active", link.getAttribute("href") === "#" + id);
+            });
+          }
+        });
+      }
+
+      var observer = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+
+      document.querySelectorAll(".fade-in").forEach(function (el) {
+        observer.observe(el);
+      });
+
+      /* ===== 新闻动态 ===== */
+      var newsArticles = [
+        {
+          id: 1,
+          title: "河南旋翼航空：无人机岗位亮相招聘会、引起求职热潮",
+          cover: "images/招聘.jpg",
+          tag: "招聘活动",
+          date: "2026-07-21",
+          time: "08:55",
+          location: "河南",
+          author: "河南旋翼航空",
+          summary: "河南旋翼航空科技亮相信阳招聘会，提供无人机飞手、教员等热门岗位，吸引300余人咨询、120份简历，现场演示引爆求职热情。负责人黄建宏表示：低空经济腾飞催生专业人才缺口，公司将通过培训晋升体系助力员工成长，为信阳发展注入'旋翼力量'。",
+          content: [
+            { type: "text", value: "7月17日至19日，2026年'职在河南 职等你来'百日千万招聘专项行动夏季夜市招聘会在信阳万达广场举行。河南旋翼航空科技有限公司作为重点企业应邀参会，提供无人机飞手、无人机教员、无人机装调检修工、文员、人事等岗位，现场人气高涨。" },
+            { type: "image", src: "images/招聘.jpg", alt: "河南旋翼航空招聘会现场", caption: "旋翼航空招聘展位现场，求职者排队咨询" },
+            { type: "text", value: "旋翼航空是本地无人机技术应用与培训领域的专业企业，主要从事无人机CAAC培训及人社部职业技能认定，业务涵盖航测、植保、应急救援等。此次招聘，技术岗位要求持证或有经验，职能岗位面向应届生及转岗人员，岗位层次清晰、发展路径明确。" },
+            { type: "text", value: "招聘会采用'夜市+直播'模式，旋翼航空除现场设展外，还参与线上直播荐岗。公司人员耐心解答岗位详情、薪资福利及本地人才政策，并演示无人机操作，吸引众多求职者。三日累计接待咨询300余人次，收到简历120余份，初步达成意向近40人，飞手、教员岗位竞争尤为激烈。" },
+            { type: "text", value: "旋翼航空科技负责人黄建宏表示：近年来，随着低空经济的飞速发展，无人机专业人才缺口比较大，人才是公司发展的核心动力，后续将持续参与各类就业服务活动，并完善内部培训晋升体系，助力员工成长。公司将继续践行社会责任，为信阳低空经济发展和稳就业工作贡献'旋翼力量'。" }
+          ],
+          source: "河南旋翼航空科技有限公司"
+        },
+        {
+          id: 2,
+          title: "暑期无人机培训火热开启 旋翼航空CAAC考证与维修培训双轨并行",
+          cover: "images/无人机培训.png",
+          tag: "培训动态",
+          date: "2026-07-17",
+          time: "14:54",
+          location: "河南",
+          author: "河南旋翼航空",
+          summary: "2026年无人机行业全面进入'持证上岗'时代，旋翼航空推出'执照+维修'双轨课程，助力学员暑期实现从新手到专业人才的蜕变，把握低空经济爆发机遇。",
+          content: [
+            { type: "text", value: "2026年盛夏，随着低空经济持续升温，无人机专业人才需求井喷。位于河南省信阳市的河南旋翼航空科技有限公司（以下简称'旋翼航空'）抢抓机遇，于7月正式启动暑期无人机培训计划。依托民航局CAAC认证培训资质，公司面向学生、退役军人及社会从业者推出CAAC无人机执照考证与无人机维修技术两大核心课程，助力学员实现从'小白'到专业人才的暑期蜕变。" },
+            { type: "image", src: "images/无人机培训.png", alt: "旋翼航空暑期无人机培训", caption: "学员正在进行无人机实操训练" },
+            { type: "text", value: "双轨课程体系 覆盖行业核心需求。旋翼航空本次暑期培训构建了'执照考证+维修技术'双轨并行的课程体系。CAAC执照培训严格对标民航局考核标准，采用'理论—模拟—实操—取证'全流程教学。理论模块涵盖空域管理法规、航空气象、飞行原理及应急处置；实操训练则在专业教练'手把手带教'下，从模拟飞行逐步过渡到真机悬停、八字航线等核心科目。学员考核合格后可获得中国民航局（CAAC）颁发的无人驾驶航空器驾驶员电子执照。" },
+            { type: "text", value: "无人机维修培训聚焦'懂设备、会调试、能排障'的复合型技术能力。课程涵盖无人机系统架构、飞控原理、故障诊断与维护技术，学员将在真实场景中完成机体拆解、动力系统检修、飞控与传感器调试、焊接与模块更换等实操任务，掌握从故障排查到整机修复的全流程技能。" },
+            { type: "text", value: "进入暑假以来，旋翼航空培训基地学员到岗率大幅提升，在校大学生和应届高考生成为参训主力军。不少学子将利用暑期考取CAAC执照视为提升就业竞争力的重要途径——当前农业植保、电力巡检、测绘监测等领域对持证人才需求占比已超过65%。此外，培训还吸引了退役军人及行业从业者踊跃报名。" },
+            { type: "text", value: "为提升培训体验，旋翼航空在教学中融入趣味互动元素，摒弃枯燥的传统授课模式，让学员在动手实践中感受低空科技的魅力。培训基地配备完善的理论教室、模拟飞行机房与室外飞行场地，采用小班制教学确保每位学员得到充分指导。据悉，旋翼航空暑期培训将持续至8月底。公司负责人杨晓峰表示，随着2026年新修订的《中华人民共和国民用航空法》正式施行，无人机商业飞行已全面进入 '持证上岗'时代 ，旋翼航空将持续深耕低空经济人才培育领域，为行业高质量发展输送更多专业化、复合型技术人才。" }
+          ],
+          source: "河南旋翼航空科技有限公司"
+        },
+        {
+          id: 3,
+          title: "河南信阳浉河区：科技赋能 提质增效",
+          cover: "images/技术人员操作3.png",
+          tag: "业务动态",
+          date: "2026-07-09",
+          time: "00:00",
+          location: "河南信阳",
+          author: "信阳日报",
+          summary: "游河镇与河南旋翼航空科技有限公司合作，利用无人机技术高效推进农村集体'三资'管理地块信息录入工作，大幅提升效率，为乡村治理赋能。",
+          content: [
+            { type: "text", value: "盛夏时节，在河南省信阳市浉河区游河镇田野上空，一架架无人机盘旋穿梭，高清镜头下，一块块零散地块的边界被精准捕捉、清晰定格。这是游河镇与河南旋翼航空科技有限公司合作推进农村集体'三资'管理地块信息录入工作的生动一幕。" },
+            { type: "text", value: "农村'三资'管理涉及千家万户，地块信息精准上图入库是基础也是难点。游河镇辖19个行政村，地块总数超2.5万个，且多丘陵、零散分布，传统人工录入不仅耗时长、易出错，还容易因边界不清引发纠纷。过去，村干部全靠两条腿，翻山岭、钻树林，拿着手机一块一块拍照录入。夏天烈日当头，草深林密处常有蛇虫出没，胳膊被荆棘划得满是血道子，有的地块藏在湖中，还得坐船才能到，一天下来根本跑不了几块地。截至2026年5月底，该镇录入完成比仅21.13%，任务十分艰巨。" },
+            { type: "image", src: "images/技术人员操作3.png", alt: "技术人员操作无人机", caption: "旋翼航空技术人员正在操作无人机进行地块测绘" },
+            { type: "text", value: "关键时刻，河南旋翼航空科技有限公司主动对接、快速响应，派出专业无人机技术团队携工业级设备进驻一线。从乔庙村到新集村，从高湾村到堰口村，无人机跨越沟坎、飞越山坡，通过高精度航拍、影像拼接与矢量化处理，将复杂地形上的地块边界一一'画'了出来。工作人员只需在电脑端核对、标注，便能让数据精准入库，效率较传统方式提升数倍。" },
+            { type: "text", value: "'以前靠腿跑，受苦受累不说，好多地方根本到不了跟前。现在无人机飞一圈，地界清清楚楚，村民也心服口服。'2026年7月3日，高湾村一名村干部告诉记者，科技手段不仅极大减轻了基层负担，更从源头化解了权属纠纷，让'三资'管理更加阳光透明。" },
+            { type: "text", value: "作为深耕低空遥感与农业数字化的本土科技企业，河南旋翼航空科技有限公司始终秉持'科技服务'三农''的理念。公司总经理杨晓峰表示：'运用无人机技术为基层'三资'录入提速、为乡村治理赋能，助力乡村振兴，是企业应有的社会责任。'目前，游河镇正借助这次合作，抓紧推进地块信息录入工作，确保应录尽录、准确入库。政企携手、科技加持，给农村基层治理带来了实实在在的便利。" }
+          ],
+          source: "信阳日报（信阳学习平台）"
+        },
+        {
+          id: 4,
+          title: "银企精准对接再添成果，旋翼航空科技亮相信阳第三期'金融下午茶'沙龙",
+          cover: "images/信阳金融4.png",
+          tag: "企业动态",
+          date: "2026-07-19",
+          time: "14:55",
+          location: "河南信阳",
+          author: "河南旋翼航空",
+          summary: "信阳'金融下午茶'银企对接沙龙圆满举行，工行与旋翼航空等企业深入交流，破解融资瓶颈，共谋低空经济发展。",
+          content: [
+            { type: "text", value: "信阳金融服务超市第三期'金融下午茶'银企精准对接沙龙，在市政务服务中心'益企之家'会议室圆满举行。本次活动由信阳市中小企业公共服务平台、信阳汇众国家级科技企业孵化器联合主办，工行太古广场支行承办，旨在打通银企信息壁垒，为本土中小企业注入金融活水，破解融资发展瓶颈。" },
+            { type: "image", src: "images/信阳金融4.png", alt: "金融下午茶沙龙现场", caption: "第三期'金融下午茶'银企对接沙龙现场" },
+            { type: "text", value: "作为信阳低空经济领域的本土科创代表，河南旋翼航空科技有限公司应邀参会，与工商银行金融团队及多家优质企业展开深入交流。活动现场，工行专员系统解读了科技型企业普惠信贷、创业扶持等惠企政策，为中小微企业量身提供资金规划与融资路径建议。" },
+            { type: "text", value: "会上，旋翼航空全面介绍了其无人机CAAC执照培训、航测测绘、农林植保、环境勘察等全产业链业务布局，并围绕企业实训场地扩建、设备迭代升级及业务规模扩张等近期规划，与银行方就科创类企业专项融资方案进行务实探讨，为后续发展储备坚实金融支撑。同时，企业还与同行积极对接产业合作意向，共同挖掘无人机技术在本地化场景中的多元应用潜力。" },
+            { type: "text", value: "据悉，'金融下午茶'已成为信阳市常态化银企对接服务品牌，持续为中小企业输送精准金融资源。未来，河南旋翼航空将继续依托各项惠企扶持政策，深耕低空经济人才培养与工程服务领域，为信阳就业创业、乡村振兴及新兴产业培育贡献新的动能。" }
+          ],
+          source: "河南旋翼航空科技有限公司"
+        }
+      ];
+
+      var newsList = document.getElementById("newsList");
+      var newsDetail = document.getElementById("newsDetail");
+      var newsCardsGrid = document.getElementById("newsCardsGrid");
+      var newsArticleContent = document.getElementById("newsArticleContent");
+      var newsBack = document.getElementById("newsBack");
+
+      function escapeHtml(text) {
+        var div = document.createElement("div");
+        div.textContent = text;
+        return div.innerHTML;
+      }
+
+      function renderNewsCards() {
+        newsCardsGrid.innerHTML = newsArticles.map(function (article) {
+          return (
+            '<button class="news-card" type="button" data-id="' + article.id + '" aria-label="阅读：' + escapeHtml(article.title) + '">' +
+              '<div class="news-card-cover">' +
+                '<img src="' + escapeHtml(article.cover) + '" alt="' + escapeHtml(article.title) + '">' +
+                '<div class="news-card-overlay">' +
+                  '<span class="news-card-tag">' + escapeHtml(article.tag) + '</span>' +
+                  '<h3 class="news-card-title">' + escapeHtml(article.title) + '</h3>' +
+                '</div>' +
+              '</div>' +
+              '<div class="news-card-footer">' +
+                '<span class="news-card-date">' + escapeHtml(article.date) + '</span>' +
+                '<span class="news-card-more">阅读全文 →</span>' +
+              '</div>' +
+            '</button>'
+          );
+        }).join("");
+
+        newsCardsGrid.querySelectorAll(".news-card").forEach(function (card) {
+          card.addEventListener("click", function () {
+            openNewsArticle(Number(card.getAttribute("data-id")));
+          });
+        });
+      }
+
+      function renderArticleContent(article) {
+        var contentHtml = article.content.map(function (block) {
+          if (block.type === "image") {
+            return (
+              '<figure class="article-image">' +
+                '<img src="' + escapeHtml(block.src) + '" alt="' + escapeHtml(block.alt) + '">' +
+                (block.caption ? '<figcaption>' + escapeHtml(block.caption) + '</figcaption>' : '') +
+              '</figure>'
+            );
+          }
+          return '<p>' + escapeHtml(block.value) + '</p>';
+        }).join("");
+
+        newsArticleContent.innerHTML =
+          '<h1 class="article-title">' + escapeHtml(article.title) + '</h1>' +
+          '<div class="article-author">' +
+            '<div class="author-avatar">旋翼</div>' +
+            '<div class="author-info">' +
+              '<span class="author-name">' + escapeHtml(article.author) + '</span>' +
+              '<span class="author-meta">' + escapeHtml(article.date + " " + article.time) + '&nbsp;&nbsp;' + escapeHtml(article.location) + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="ai-summary">' +
+            '<div class="ai-summary-header"><span class="ai-badge">AI导读</span></div>' +
+            '<p>' + escapeHtml(article.summary) + '</p>' +
+            '<span class="ai-note">内容由AI智能生成</span>' +
+          '</div>' +
+          '<div class="article-content">' + contentHtml + '</div>' +
+          '<div class="article-source">来源：' + escapeHtml(article.source) + '</div>';
+      }
+
+      function openNewsArticle(id) {
+        var article = newsArticles.find(function (item) { return item.id === id; });
+        if (!article) return;
+
+        renderArticleContent(article);
+        newsList.classList.add("hidden");
+        newsDetail.classList.remove("hidden");
+        history.pushState({ newsId: id }, "", "#news/" + id);
+
+        var newsSection = document.getElementById("news");
+        var top = newsSection.offsetTop - 72;
+        window.scrollTo({ top: top, behavior: "smooth" });
+      }
+
+      function closeNewsArticle() {
+        newsDetail.classList.add("hidden");
+        newsList.classList.remove("hidden");
+        history.pushState(null, "", "#news");
+      }
+
+      newsBack.addEventListener("click", closeNewsArticle);
+
+      window.addEventListener("popstate", function () {
+        if (location.hash.match(/^#news\/\d+$/)) {
+          var id = Number(location.hash.split("/")[1]);
+          openNewsArticle(id);
+        } else {
+          newsDetail.classList.add("hidden");
+          newsList.classList.remove("hidden");
+        }
+      });
+
+      renderNewsCards();
+
+      if (location.hash.match(/^#news\/\d+$/)) {
+        openNewsArticle(Number(location.hash.split("/")[1]));
+      }
+    })();
+  </script>
+</body>
+</html>
